@@ -11,20 +11,37 @@
 	-fx-background-image:  url('../img/background_image.jpg');
 	-fx-background-size: cover, auto;
 }
+
+
+/** TITLE TEXT STYLE*/
 .labelTitle {
     -fx-font-family: "Pacifico";
     -fx-font-size: 32px;
+    -fx-text-fill: #653d35;
     -fx-fill: #fcdcb3;
     -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
 
 }
-.labelMessage {
+
+/** TEXT STYLE */
+.labelText {
     -fx-font-family: "BetinaScriptCTT";
     -fx-font-size:24px;
+    -fx-text-fill: #653d35;
 }
+
+/** TEXT STYLE SMALL*/
+.labelSmallText {
+    -fx-font-family: "BetinaScriptCTT";
+    -fx-font-size:14px;
+    -fx-text-fill: #653d35;
+}
+
+/** TEXT FIELD STYLE */
 .textField {
-  -fx-font-family: "BetinaScriptCTT";
-  -fx-font-size:18px;
+    -fx-font-family: "BetinaScriptCTT";
+    -fx-font-size:18px;
+    -fx-text-fill: #3596dd;
     -fx-height: 25px;
     -fx-width: 275px;
     -fx-background-color: transparent;
@@ -32,11 +49,44 @@
     -fx-border-width: 0px 0px 1px 0px;
     -fx-border-color: darkred;
     -fx-outline:0;
+
+}
+
+/** CHECK BOX STYLE*/
+#cb {
+    -fx-font-family: "BetinaScriptCTT";
+    -fx-font-size:14px;
+    -fx-text-fill: #653d35;
+    -fx-color: #fad7af;
+}
+
+#cb:selected {
+    -fx-text-fill: #3596dd;
+    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+
+}
+
+/** IMAGE STYLE */
+.iv {
+    -fx-effect: innershadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+    -fx-padding: 10;
+    -fx-background-radius: 5;
+}
+
+/** PROGRESS INDICATOR */
+.pr {
+    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+    -fx-font-family: "BetinaScriptCTT";
+    -fx-font-size:16px;
+    -fx-text-fill: #653d35;
+    -fx-control-inner-background: #fad7af;
 }
 
 /** BUTTON */
 
 #button {
+-fx-font-family: "BetinaScriptCTT";
+    -fx-text-fill: #753d35;
     -fx-padding: 0 8 8 8;
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-radius: 8;
@@ -44,7 +94,7 @@
         linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
         #9d4024,
         #d86e3a,
-        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
+        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #d86e3a);
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
     -fx-font-size: 18px;

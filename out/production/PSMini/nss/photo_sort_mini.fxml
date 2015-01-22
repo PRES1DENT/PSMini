@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
@@ -7,24 +9,38 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="341.0" prefWidth="1024.0" styleClass="background" stylesheets="@../css/psmStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="apMainBoard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="341.0" prefWidth="1024.0" styleClass="background" stylesheets="@../css/psmStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="121.0" styleClass="labelTitle" stylesheets="@../css/psmStyle.css" text="Photo Sort Mini" />
-      <Label layoutX="29.0" layoutY="39.0" styleClass="labelMessage" stylesheets="@../css/psmStyle.css" text="Укажите папку с изображениями:" />
-      <TextField layoutX="26.0" layoutY="81.0" prefHeight="32.0" prefWidth="345.0" styleClass="textField" stylesheets="@../css/psmStyle.css" />
-      <Button id="button" layoutX="374.0" layoutY="54.0" mnemonicParsing="false" prefHeight="73.0" prefWidth="82.0" styleClass="labelMessage" stylesheets="@../css/psmStyle.css" text="Выбрать папку" textAlignment="CENTER" wrapText="true" />
-      <Label layoutX="26.0" layoutY="135.0" styleClass="labelMessage" text="Куда сохранять изображения:">
+      <Label fx:id="lbAppName" layoutX="121.0" styleClass="labelTitle" stylesheets="@../css/psmStyle.css" text="Photo Sort Mini" textFill="#0071db" />
+      <Label fx:id="lbSourceDir" layoutX="29.0" layoutY="39.0" styleClass="labelText" stylesheets="@../css/psmStyle.css" text="Укажите папку с изображениями:" />
+      <TextField fx:id="tfSourceDir" layoutX="26.0" layoutY="81.0" prefHeight="32.0" prefWidth="345.0" styleClass="textField" stylesheets="@../css/psmStyle.css" />
+      <Button id="button" fx:id="btSetSourceDir" layoutX="374.0" layoutY="54.0" mnemonicParsing="false" prefHeight="73.0" prefWidth="82.0" stylesheets="@../css/psmStyle.css" text="Выбрать папку" textAlignment="CENTER" wrapText="true" />
+      <Label fx:id="lbTargetDir" layoutX="26.0" layoutY="135.0" styleClass="labelText" text="Куда сохранять изображения:">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </Label>
-      <Button id="button" layoutX="374.0" layoutY="138.0" mnemonicParsing="false" prefHeight="73.0" prefWidth="82.0" styleClass="labelMessage" stylesheets="@../css/psmStyle.css" text="Выбрать папку" textAlignment="CENTER" wrapText="true" />
-      <TextField layoutX="26.0" layoutY="165.0" prefHeight="32.0" prefWidth="345.0" styleClass="textField" stylesheets="@../css/psmStyle.css" />
-      <Label layoutX="29.0" layoutY="220.0" styleClass="labelMessage" text="Сортировать изображения по">
+      <Button id="button" fx:id="btSetTargetDir" layoutX="374.0" layoutY="138.0" mnemonicParsing="false" prefHeight="73.0" prefWidth="82.0" styleClass="labelText" stylesheets="@../css/psmStyle.css" text="Выбрать папку" textAlignment="CENTER" wrapText="true">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets></Button>
+      <TextField fx:id="tfTargetDir" layoutX="26.0" layoutY="165.0" prefHeight="32.0" prefWidth="345.0" styleClass="textField" stylesheets="@../css/psmStyle.css" />
+      <Label fx:id="lbSortType" layoutX="29.0" layoutY="220.0" styleClass="labelText" text="Сортировать изображения по">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </Label>
-      <ChoiceBox layoutX="331.0" layoutY="210.0" prefHeight="8.0" prefWidth="125.0" styleClass="textField" />
+      <ChoiceBox fx:id="cbSortType" layoutX="331.0" layoutY="210.0" prefHeight="8.0" prefWidth="125.0" styleClass="textField" />
+      <CheckBox id="cb" fx:id="cbSaveOriginal" layoutX="29.0" layoutY="262.0" mnemonicParsing="false" stylesheets="@../css/psmStyle.css" text="Оставлять оригиналы" />
+      <CheckBox id="cb" fx:id="cbSaveDublicate" layoutX="29.0" layoutY="293.0" mnemonicParsing="false" text="Удалять дубликаты" />
+      <Button id="button" fx:id="btStartSorting" layoutX="254.0" layoutY="272.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="202.0" styleClass="labelText" text="Начать сортировку" />
+      <ImageView fx:id="ivImage" fitHeight="220.0" fitWidth="355.0" layoutX="596.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" styleClass="iv">
+         <image>
+            <Image url="@../../../../../../../../Pictures/287127_10151086656154118_1251803244_o.jpg" />
+         </image>
+      </ImageView>
+      <Label fx:id="lbImageName" layoutX="668.0" layoutY="261.0" styleClass="labelSmallText" text="Фото_(19.09.2009)_1920х1080.jpg)" />
+      <ProgressIndicator fx:id="piProgress" layoutX="960.0" layoutY="16.0" progress="0.0" styleClass="pr" />
+      <Label fx:id="lbAuthor" layoutX="910.0" layoutY="309.0" styleClass="labelSmallText" text="Sergey Nadolskiy" />
    </children>
 </AnchorPane>
