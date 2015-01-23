@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane fx:id="apMainBoard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="341.0" prefWidth="1024.0" styleClass="background" stylesheets="@../css/psmStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="apMainBoard" maxHeight="341.0" maxWidth="1024.0" minHeight="341.0" minWidth="1024.0" prefHeight="341.0" prefWidth="1024.0" styleClass="background" stylesheets="@../css/psmStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="lbAppName" layoutX="121.0" styleClass="labelTitle" stylesheets="@../css/psmStyle.css" text="Photo Sort Mini" textFill="#0071db" />
       <Label fx:id="lbSourceDir" layoutX="29.0" layoutY="39.0" styleClass="labelText" stylesheets="@../css/psmStyle.css" text="Укажите папку с изображениями:" />
@@ -27,17 +27,42 @@
             <Insets />
          </opaqueInsets>
       </Label>
-      <ChoiceBox fx:id="cbSortType" layoutX="331.0" layoutY="210.0" prefHeight="8.0" prefWidth="125.0" styleClass="textField" />
+      <ChoiceBox fx:id="cbSortType" layoutX="331.0" layoutY="210.0" prefHeight="8.0" prefWidth="125.0" styleClass="choiceBox" stylesheets="@../css/psmStyle.css" />
       <CheckBox id="cb" fx:id="cbSaveOriginal" layoutX="29.0" layoutY="262.0" mnemonicParsing="false" stylesheets="@../css/psmStyle.css" text="Оставлять оригиналы" />
       <CheckBox id="cb" fx:id="cbSaveDuplicate" layoutX="29.0" layoutY="293.0" mnemonicParsing="false" text="Удалять дубликаты" />
       <Button id="button" fx:id="btStartSorting" layoutX="254.0" layoutY="272.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="202.0" styleClass="labelText" text="Начать сортировку" />
-      <ImageView fx:id="ivImage" fitHeight="220.0" fitWidth="355.0" layoutX="596.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" styleClass="iv">
-         <image>
-            <Image url="@../../../../../../../../Pictures/287127_10151086656154118_1251803244_o.jpg" />
-         </image>
-      </ImageView>
-      <Label fx:id="lbImageName" layoutX="668.0" layoutY="261.0" styleClass="labelSmallText" text="Фото_(19.09.2009)_1920х1080.jpg)" />
+      <Label layoutX="568.0" layoutY="43.0" styleClass="labelSmallText" text="Всего изображений:" />
       <ProgressIndicator fx:id="piProgress" layoutX="960.0" layoutY="16.0" progress="0.0" styleClass="pr" />
       <Label fx:id="lbAuthor" layoutX="910.0" layoutY="309.0" styleClass="labelSmallText" text="Sergey Nadolskiy" />
+      <Label fx:id="lbAllImageFound" layoutX="609.0" layoutY="67.0" styleClass="labelSmallText" text="3 шт." textAlignment="CENTER" />
+      <Label layoutX="566.0" layoutY="298.0" styleClass="labelSmallText" text="Осталось отсортировать:" />
+      <Label fx:id="lbImageLeft" layoutX="726.0" layoutY="299.0" styleClass="labelSmallText" text="23 500 шт." />
+      <HBox alignment="CENTER" layoutX="697.0" layoutY="29.0" maxHeight="120.0" maxWidth="160.0" minHeight="120.0" minWidth="160.0" prefHeight="120.0" prefWidth="160.0" styleClass="hb">
+         <children>
+            <ImageView fx:id="ivHorizontalImage1" fitHeight="120.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" styleClass="iv" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="790.0" layoutY="152.0" maxHeight="120.0" maxWidth="160.0" minHeight="120.0" minWidth="160.0" prefHeight="120.0" prefWidth="160.0" styleClass="hb">
+         <children>
+            <ImageView fx:id="ivHorizontalImage2" fitHeight="120.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" styleClass="iv" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="860.0" layoutY="29.0" maxHeight="120.0" maxWidth="90.0" minHeight="120.0" minWidth="90.0" prefHeight="120.0" prefWidth="90.0" styleClass="hb">
+         <children>
+            <ImageView fx:id="ivVerticalImage1" fitHeight="120.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" styleClass="iv" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="697.0" layoutY="152.0" maxHeight="120.0" maxWidth="90.0" minHeight="120.0" minWidth="90.0" prefHeight="120.0" prefWidth="90.0" styleClass="hb">
+         <children>
+            <ImageView fx:id="ivVerticalImage2" fitHeight="120.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" styleClass="iv" />
+         </children>
+      </HBox>
+      <Label layoutX="568.0" layoutY="96.0" styleClass="labelSmallText" text="Найдено дубликатов:" />
+      <Label text="Label" />
+      <Label fx:id="lbDuplicateFound" layoutX="604.0" layoutY="119.0" styleClass="labelSmallText" text="40 шт." textAlignment="CENTER" />
+      <Label layoutX="568.0" layoutY="173.0" styleClass="labelSmallText" text="Создано новых папок:" />
+      <Label fx:id="lbNewFolderCreated" layoutX="611.0" layoutY="188.0" styleClass="labelSmallText" text="5 шт." textAlignment="CENTER" />
+      <Label layoutX="568.0" layoutY="219.0" styleClass="labelSmallText" text="Переименовано:" />
+      <Label fx:id="lbImageRenamed" layoutX="607.0" layoutY="243.0" styleClass="labelSmallText" text="10 шт." textAlignment="CENTER" />
    </children>
 </AnchorPane>
