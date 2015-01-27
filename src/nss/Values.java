@@ -17,7 +17,11 @@ public class Values {
     public static final int APP_HEIGHT = 348;
 
     // IMAGE SIZE
+    public static final int IMAGE_WIDTH = 400;
     public static final int IMAGE_HEIGHT = 230;
+
+    // THREAD
+    public static final int THREAD_SLEEP_TIME = 1000;
 
     // SORTING TYPE
     public static final String SORT_BY_DATE   = "дате";
@@ -51,5 +55,17 @@ public class Values {
     public static final String TIMER_TIME_M = "(М)";
     public static final String TIMER_TIME_S = "(С)";
 
+    // VALUES
+    public static final int IMAGE_YEAR      = 0;
+    public static final int IMAGE_MONTH     = 1;
+    public static final int IMAGE_FULL_DATA = 2;
 
+    public static final int IMAGE_CAMERA_BRAND = 3;
+    public static final int IMAGE_CAMERA_MODEL = 4;
+
+    public static final int IMAGE_TYPE = 5;
+    public static final int IMAGE_SIZE = 6;
+
+    public static final int DIR = 0;
+    public static final int IMAGE = 1;
 }

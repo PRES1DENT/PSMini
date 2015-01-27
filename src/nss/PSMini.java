@@ -22,10 +22,10 @@ import javafx.stage.WindowEvent;
 
 import java.io.File;
 
-public class Main extends Application {
+public class PSMini extends Application {
 
     Thread myRunnableThread;
-    MyRunnable myRunnable;
+    Sort sort;
 
     FXMLLoader fxmlLoader;
     Stage sPrimaryStage;
@@ -58,10 +58,6 @@ public class Main extends Application {
     // SAVE ORIGINAL
     CheckBox cbSaveOriginals;
     boolean bSaveOriginal;
-
-    // SAVE DUPLICATES;
-    CheckBox cbSaveDuplicates;
-    boolean bSaveDuplicates;
 
     // START BUTTON
     Button btStart;
@@ -135,19 +131,18 @@ public class Main extends Application {
                 if (Libs.checkSourceAndTargetPath(sSourceFolderPath, sTargetFolderPath)){            // if user set all data
                     iSortNumber = cbSortBy.getSelectionModel().getSelectedIndex();
                     bSaveOriginal = cbSaveOriginals.isSelected();
-                    bSaveDuplicates = cbSaveDuplicates.isSelected();
 
                     btStart.setText(Values.BUTTON_TEXT_SORTING);
                     btStart.setDisable(true);
                     btSetSourceFolder.setDisable(true);
                     btSetTargetFolder.setDisable(true);
 
-                    myRunnable = new MyRunnable(sSourceFolderPath, sTargetFolderPath,
-                            iSortNumber, bSaveOriginal, bSaveDuplicates,
+                    sort = new Sort(sSourceFolderPath, sTargetFolderPath,
+                            iSortNumber, bSaveOriginal,
                             ivImage,
                             lbAllImagesFound, lbImagesLeft,
                             btStart, btSetSourceFolder, btSetTargetFolder);
-                    myRunnableThread = new Thread(myRunnable);
+                    myRunnableThread = new Thread(sort);
                     myRunnableThread.start();
                 }
             }
@@ -160,7 +155,6 @@ public class Main extends Application {
                 System.out.println("USER CLOSE APPLICATION");                                            // TODO: DELETE
                 Platform.exit();
                 System.exit(0);
-                // TODO: close application;
             }
         });
 
@@ -186,9 +180,6 @@ public class Main extends Application {
         cbSortBy.getSelectionModel().select(0);
         // SAVE ORIGINAL
         cbSaveOriginals = (CheckBox) fxmlLoader.getNamespace().get("cbSaveOriginal");
-
-        // SAVE DUPLICATES;
-        cbSaveDuplicates = (CheckBox) fxmlLoader.getNamespace().get("cbSaveDuplicate");
 
         // START BUTTON
         btStart = (Button) fxmlLoader.getNamespace().get("btStartSorting");

@@ -1,5 +1,11 @@
 package nss;
 
+import com.drew.imaging.ImageMetadataReader;
+import com.drew.imaging.ImageProcessingException;
+import com.drew.metadata.Metadata;
+import com.drew.metadata.exif.ExifIFD0Directory;
+import com.drew.metadata.exif.ExifSubIFDDirectory;
+import com.drew.metadata.photoshop.PsdHeaderDirectory;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -10,15 +16,28 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by president on 1/23/15.
  */
 public class Libs {
+
+    public HashMap hmImageMetadata = new HashMap();
+    public ArrayList<String> md5List = new ArrayList<>();
 
     /*******************************************************************************************************************
      * CHECK FILE IS IMAGE *********************************************************************************************
@@ -28,7 +47,6 @@ public class Libs {
      *         2 - file is jpg image ***********************************************************************************
      ******************************************************************************************************************/
     public int fileIsImage(String filePath) {
-        System.out.println("- CHECK IS FILE IS IMAGE");                                                  // TODO: DELETE
         String fileFormat = getFileType(filePath).toLowerCase();
         if ( (fileFormat.equals("nef")   || fileFormat.equals("cr2") || fileFormat.equals("psd")  ||
                 fileFormat.equals("tif") || fileFormat.equals("png") || fileFormat.equals("gif")  ||
@@ -46,10 +64,8 @@ public class Libs {
      * @return file type ***********************************************************************************************
      ******************************************************************************************************************/
     public String getFileType(String fullPathToImage) {
-        System.out.println("- GET FILE TYPE");                                                           // TODO: DELETE
         String[] arrPath = fullPathToImage.split("\\.");
         String type = arrPath[(arrPath.length-1)];
-        System.out.println("File " + fullPathToImage + " have " + type + " type.");                      // TODO: DELETE
         return type;
     }
 
@@ -59,7 +75,6 @@ public class Libs {
      * @param stop  when operation end *********************************************************************************
      ******************************************************************************************************************/
     public static void calculateTime(Date start, Date stop) {
-        System.out.println("- SHOW TIMER");                                                              // TODO: DELETE
         DateFormat formatter = new SimpleDateFormat(Values.DATE_FORMAT);
 
         String startTime = formatter.format(start);
@@ -95,9 +110,6 @@ public class Libs {
      *          false - error/******************************************************************************************
      ******************************************************************************************************************/
     public static boolean checkSourceAndTargetPath(String sPathToSourceFolder, String sPathToTargetFolder) {
-        System.out.println( "- START CHECKING DATA: \nfolder with photo - " + sPathToSourceFolder +
-                                                      "\nfolder to save - " + sPathToTargetFolder);      // TODO: DELETE
-        Date dStart = new Date();                                                                        // TODO: DELETE
         String sAlertMessages = "";
         // Check if path to source dir not empty
         if (sPathToSourceFolder.equals("")) {                               // path is empty
@@ -116,20 +128,12 @@ public class Libs {
                 sAlertMessages += checkPathToFolder(sPathToTargetFolder);   // there is no folder
             }
         }
-
         // Check if there any error message
         if (!sAlertMessages.equals("")){                                    // there is some error message
             // Show Alert Dialog
             showAlertBox(sAlertMessages);
-            System.out.println("Check is fall:\n" + sAlertMessages);                                     // TODO: DELETE
-            Date dStop = new Date();                                                                     // TODO: DELETE
-            calculateTime(dStart, dStop);                                                                // TODO: DELETE
             return false;
         }
-
-        System.out.println("Check is done");                                                             // TODO: DELETE
-        Date dStop = new Date();                                                                         // TODO: DELETE
-        calculateTime(dStart, dStop);                                                                    // TODO: DELETE
         return true;
     }
 
@@ -140,7 +144,6 @@ public class Libs {
      *         false - there is no folder ******************************************************************************
      ******************************************************************************************************************/
     public static String checkPathToFolder(String sPathToFolder) {
-        System.out.println("- CHECK PATH TO FOLDER");                                                    // TODO: DELETE
         String message = "";
         File file = new File(sPathToFolder);
         // Check is file exist
@@ -149,8 +152,6 @@ public class Libs {
         // Check is file is directory
         if(!file.isDirectory())
             message += Values.CHECK_NOT_A_DIR + sPathToFolder + "\n";
-
-        System.out.println("Result of checking (empty is good): " + message);                            // TODO: DELETE
         return message;
     }
 
@@ -159,7 +160,6 @@ public class Libs {
      * @param sAlertMessages message with error ************************************************************************
      ******************************************************************************************************************/
     public static void showAlertBox(String sAlertMessages) {                                          // TODO: CUSTOMIZE
-        System.out.println("- SHOW ALERT WINDOW;");                                                      // TODO: DELETE
         final Stage dialogStage = new Stage();
         GridPane grd_pan = new GridPane();
         grd_pan.setAlignment(Pos.CENTER);
@@ -177,13 +177,514 @@ public class Libs {
         btn_ok.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                System.out.println("---> USER PRESS CLOSE BUTTON <---");                                 // TODO: DELETE
                 // TODO Auto-generated method stub
                 dialogStage.hide();
             }
         });
         grd_pan.add(btn_ok, 0, 2);
         dialogStage.show();
+    }
+
+    /*******************************************************************************************************************
+     * GET INFORMATION ABOUT IMAGE *************************************************************************************
+     * @param pathToFile path to image *********************************************************************************
+     ******************************************************************************************************************/
+    public void getImageMetaData(String pathToFile) {
+        System.out.println("---------- GETTING INFORMATION ABOUT IMAGE ----------");                     // TODO: DELETE
+        int imageWidth  = 0;                // ширина изображения
+        int imageHeight = 0;                // высота изображения
+
+        int imageYear  = 0;                 // год снимка
+        int imageMonth = 0;                 // месяц снимка
+        int imageDay   = 0;                 // день снимка
+
+        String imageCameraBrand = null;     // марка аппарата
+        String imageCameraModel = null;     // модель аппарата
+
+        String imageType;                   // расширение снимка
+
+        File image = new File(pathToFile);
+        Metadata metadata = null;
+        try {
+            System.out.println("TRYING TO GET METADATA");                                                // TODO: DELETE
+            metadata = ImageMetadataReader.readMetadata(image);
+        } catch (ImageProcessingException e) {
+            System.out.println("ERROR GETTING METADATA 1");                                              // TODO: DELETE
+        } catch (IOException e) {
+            System.out.println("ERROR GETTING METADATA 2");                                              // TODO: DELETE
+        } catch (NoClassDefFoundError e) {
+            System.out.println("ERROR GETTING METADATA 3");                                              // TODO: DELETE
+        }
+        if (metadata == null) {
+
+        }
+
+        // Если meta-данные удалось считать:
+        if (metadata != null) {
+            System.out.println("WE GET IMAGE METADATA");                                                 // TODO: DELETE
+            ExifIFD0Directory exifIFDOD = metadata.getDirectory(ExifIFD0Directory.class);
+            ExifSubIFDDirectory exifSIFDD = metadata.getDirectory(ExifSubIFDDirectory.class);
+
+            PsdHeaderDirectory psdHeaderDirectory = metadata.getDirectory(PsdHeaderDirectory.class);
+
+            System.out.println("CHECK exifIFDOD");                                                       // TODO: DELETE
+
+            // Если meta-данные имеются
+            if ((exifIFDOD != null)) {
+                System.out.println("exifIFDOD not NULL:");                                               // TODO: DELETE
+
+                // Получаем марку и модель аппрата
+                imageCameraBrand = exifIFDOD.getString(ExifIFD0Directory.TAG_MAKE);
+                imageCameraModel = exifIFDOD.getString(ExifIFD0Directory.TAG_MODEL);
+                System.out.println("CAMERA BRAND: " + imageCameraBrand +
+                        "\nCAMERA MODEL " + imageCameraModel);                                 // TODO: DELETE
+
+
+                // Получаем дату снимка
+                Date date = exifIFDOD.getDate(ExifIFD0Directory.TAG_DATETIME);
+                System.out.println("TRYING TO GET DATE");                                                // TODO: DELETE
+
+                if (date != null) {
+                    System.out.println("WE GET DATE");                                                   // TODO: DELETE
+
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(date);
+
+                    imageYear = calendar.get(Calendar.YEAR);
+                    imageMonth = calendar.get(Calendar.MONTH)+1;
+                    imageDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+                    System.out.println("YEAR - " + imageYear +
+                            "\nMONTH - " + imageMonth +
+                            "\nDAY - " + imageDay);                                          // TODO: DELETE
+
+                } else {
+                    System.out.println("CAN'T GET DATE FROM exifIFDOD\n" +
+                            "IF exifSIFDD not NULL");                                                    // TODO: DELETE
+                    if (exifSIFDD != null) {
+                        Date date1 = exifSIFDD.getDate(ExifSubIFDDirectory.TAG_DATETIME_DIGITIZED);
+                        if (date1 != null) {
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.setTime(date1);
+
+                            imageYear = calendar.get(Calendar.YEAR);
+                            imageMonth = calendar.get(Calendar.MONTH)+1;
+                            imageDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+                            System.out.println("exifSIFDD DATE:" +
+                                    "\nYEAR - " + imageYear +
+                                    "\nMONTH - " + imageMonth +
+                                    "\nDAY - " + imageDay);                                              // TODO: DELETE
+
+                        }
+                    }
+                }
+
+
+                try {
+                    System.out.println("TRYING GET IMAGE SIZE");                                         // TODO: DELETE
+
+                    BufferedImage photo = ImageIO.read(new File(pathToFile));
+                    if (photo != null) {
+                        // Получаем ширину изображения
+                        imageWidth = photo.getWidth();
+                        // Получаем высоту изображения
+                        imageHeight = photo.getHeight();
+                        System.out.println("WIDTH: " + imageWidth +
+                                "\nHEIGHT: " + imageHeight);                                 // TODO: DELETE
+
+                    }
+                } catch (IOException e) {
+                    System.out.println("CAN'T GET SIZE");                                                // TODO: DELETE
+
+                }
+
+                // Если разрешения полученные из metadata равны 0
+                if (imageWidth == 0 || imageHeight == 0) {
+                    System.out.println("SIZE = 0");                                                      // TODO: DELETE
+                    // Получаем разрешение изображения
+                    try {
+                        System.out.println("TRYING TO GET SIZE ANOTHER METHOD");                         // TODO: DELETE
+
+                        imageWidth = Integer.parseInt(exifIFDOD.getString(256));
+                        imageHeight = Integer.parseInt(exifIFDOD.getString(257));
+                        System.out.println("WIDTH: " + imageWidth + "\nHEIGHT: " + imageHeight);         // TODO: DELETE
+
+                    } catch (NumberFormatException nfe) {
+                        System.out.println("CAN'T GET SIZE");                                            // TODO: DELETE
+                    }
+                }
+            } else if (psdHeaderDirectory != null){
+                System.out.println("TRYING TO GET META FORM psdHeaderDirectory");                        // TODO: DELETE
+                imageWidth = Integer.parseInt(psdHeaderDirectory.getString(PsdHeaderDirectory.TAG_IMAGE_WIDTH));
+                imageHeight = Integer.parseInt(psdHeaderDirectory.getString(PsdHeaderDirectory.TAG_IMAGE_HEIGHT));
+                System.out.println("WIDTH: " + imageWidth + "\nHEIGHT: " + imageHeight);                 // TODO: DELETE
+            }
+            // Если meta-данные считать не удалось:
+            else {
+                System.out.println("CAN'T READ ANY META-DATA");                                          // TODO: DELETE
+                try {
+                    System.out.println("TRY BUFFERED IMAGE");                                            // TODO: DELETE
+                    BufferedImage photo = ImageIO.read(new File(pathToFile));
+                    if (photo != null) {
+                        // Получаем ширину изображения
+                        imageWidth = photo.getWidth();
+                        // Получаем высоту изображения
+                        imageHeight= photo.getHeight();
+                        System.out.println("WIDTH: " + imageWidth + "\nHEIGHT: "+ imageHeight);          // TODO: DELETE
+                    } else {
+                        System.out.println("NO DATA");                                                   // TODO: DELETE
+                    }
+                } catch (IOException e) {
+                    System.out.println("ERROR BUFFERED 1");                                              // TODO: DELETE
+
+                } catch (NullPointerException npe) {
+                    System.out.println("ERROR BUFFERED 2");                                              // TODO: DELETE
+
+                }
+            }
+        }
+        // Если meta-данные считать не удалось:
+        else {
+            System.out.println("NO META-DATA AT ALL");                                                   // TODO: DELETE
+            try {
+                System.out.println("TRY BUFFERED IMAGE");                                                // TODO: DELETE
+                BufferedImage photo = ImageIO.read(new File(pathToFile));
+                if (photo != null) {
+                    // Получаем ширину изображения
+                    imageWidth = photo.getWidth();
+                    // Получаем высоту изображения
+                    imageHeight= photo.getHeight();
+                    System.out.println("WIDTH: " + imageWidth + "\nHEIGHT: "+ imageHeight);              // TODO: DELETE
+                } else {
+                    System.out.println("NO DATA");                                                       // TODO: DELETE
+                }
+            } catch (IOException e) {
+                System.out.println("ERROR BUFFERED 1");                                                  // TODO: DELETE
+
+            } catch (NullPointerException npe) {
+                System.out.println("ERROR BUFFERED 2");                                                  // TODO: DELETE
+
+            }
+        }
+
+        // Получаем расширение изображения
+        imageType = getFileType(pathToFile);
+        System.out.println("IMAGE TYPE - " + imageType);                                                 // TODO: DELETE
+
+        if (imageType == null)
+            imageType = "";
+        if (imageCameraModel == null)
+            imageCameraModel = "";
+        if (imageCameraBrand == null)
+            imageCameraBrand = "";
+
+
+        // Вносим полученные данные в список
+        hmImageMetadata.put("imageWidth", imageWidth);
+        hmImageMetadata.put("imageHeight", imageHeight);
+        hmImageMetadata.put("imageYear", imageYear);
+        hmImageMetadata.put("imageMonth", imageMonth);
+        hmImageMetadata.put("imageDay", imageDay);
+        hmImageMetadata.put("imageCameraBrand", imageCameraBrand);
+        hmImageMetadata.put("imageCameraModel", imageCameraModel);
+        hmImageMetadata.put("imageType", imageType);
+        System.out.println("TO GET INFORMATION FROM (" + pathToFile + ") WE NEED");                      // TODO: DELETE
+    }
+    /*******************************************************************************************************************
+     * GETTING NAME ****************************************************************************************************
+     * @param i - IMAGE_YEAR      - year, when image was created *******************************************************
+     *          - IMAGE_MONTH     - month, when image was created ******************************************************
+     *          - IMAGE_FULL_DATA - (day-month-year), when photo was created *******************************************
+     *          - CAMERA_BRAND    - camera brand ***********************************************************************
+     *          - CAMERA_MODEL    - camera model ***********************************************************************
+     *          - CAMERA_TYPE     - image type *************************************************************************
+     *          - CAMERA_SIZE     - iFoundImages of image (example (1600x900)) *************************************************
+     * @return name ****************************************************************************************************
+     ******************************************************************************************************************/
+    public String getName(int i) {
+        System.out.println("---------- GETTING NAME -----------");                                       // TODO: DELETE
+        int imageYear;
+        int imageMonth;
+        int imageDay;
+        String returnedParameter = null;
+
+        switch (i) {
+            case Values.IMAGE_YEAR:
+                if (hmImageMetadata.get("imageYear") == null) {
+                    returnedParameter = "XXXX";
+                } else {
+                    imageYear = (int) hmImageMetadata.get("imageYear");
+                    if (imageYear < 1975)
+                        returnedParameter = "XXXX";
+                    else
+                        returnedParameter = String.valueOf(imageYear);
+                }
+                break;
+            case Values.IMAGE_MONTH:
+                if (hmImageMetadata.get("imageYear") == null) {
+                    returnedParameter = "";
+                } else {
+                    imageYear = (int) hmImageMetadata.get("imageYear");
+                    if (imageYear < 1975) {
+                        returnedParameter = "";
+                    } else {
+                        if (hmImageMetadata.get("imageMonth") == null) {
+                            returnedParameter = "";
+                        } else {
+                            imageMonth = (int) hmImageMetadata.get("imageMonth");
+                            switch (imageMonth) {
+                                case 1:
+                                    returnedParameter = "Январь";
+                                    break;
+                                case 2:
+                                    returnedParameter = "Февраль";
+                                    break;
+                                case 3:
+                                    returnedParameter = "Март";
+                                    break;
+                                case 4:
+                                    returnedParameter = "Апрель";
+                                    break;
+                                case 5:
+                                    returnedParameter = "Май";
+                                    break;
+                                case 6:
+                                    returnedParameter = "Июнь";
+                                    break;
+                                case 7:
+                                    returnedParameter = "Июль";
+                                    break;
+                                case 8:
+                                    returnedParameter = "Август";
+                                    break;
+                                case 9:
+                                    returnedParameter = "Сентябрь";
+                                    break;
+                                case 10:
+                                    returnedParameter = "Октябрь";
+                                    break;
+                                case 11:
+                                    returnedParameter = "Ноябрь";
+                                    break;
+                                case 12:
+                                    returnedParameter = "Декабрь";
+                                    break;
+                                default:
+                                    returnedParameter = "";
+                                    break;
+                            }
+                        }
+                    }
+                }
+                break;
+            case Values.IMAGE_FULL_DATA:
+                imageYear = (int) hmImageMetadata.get("imageYear");
+                imageMonth = (int) hmImageMetadata.get("imageMonth");
+                imageDay = (int) hmImageMetadata.get("imageDay");
+
+                if (imageYear < 1975) {
+                    returnedParameter = "";
+                } else {
+                    String month = null;
+                    switch (imageMonth) {
+                        case 1:
+                            month = "янв";
+                            break;
+                        case 2:
+                            month = "фев";
+                            break;
+                        case 3:
+                            month = "март";
+                            break;
+                        case 4:
+                            month = "апр";
+                            break;
+                        case 5:
+                            month = "май";
+                            break;
+                        case 6:
+                            month = "июнь";
+                            break;
+                        case 7:
+                            month = "июль";
+                            break;
+                        case 8:
+                            month = "авг";
+                            break;
+                        case 9:
+                            month = "сен";
+                            break;
+                        case 10:
+                            month = "окт";
+                            break;
+                        case 11:
+                            month = "ноя";
+                            break;
+                        case 12:
+                            month = "дек";
+                            break;
+                        default:
+                            break;
+                    }
+
+                    String day;
+                    if (imageDay < 10)
+                        day = "0" + imageDay;
+                    else
+                        day = String.valueOf(imageDay);
+
+                    returnedParameter = "(" + day + "-" + month + "-" +imageYear + ")";
+                }
+                break;
+
+            case Values.IMAGE_CAMERA_BRAND:
+                returnedParameter = (String) hmImageMetadata.get("imageCameraBrand");
+                break;
+            case Values.IMAGE_CAMERA_MODEL:
+                returnedParameter  = (String) hmImageMetadata.get("imageCameraModel");
+                break;
+
+            case Values.IMAGE_TYPE:
+                returnedParameter = (String) hmImageMetadata.get("imageType");
+                break;
+
+            case Values.IMAGE_SIZE: {
+                int imageWidth = (int) hmImageMetadata.get("imageWidth");
+                int imageHeight = (int) hmImageMetadata.get("imageHeight");
+
+                if (imageWidth == 0 || imageHeight == 0) {
+                    returnedParameter = "";
+                } else {
+                    returnedParameter = "(" + imageWidth + "x" + imageHeight + ")";
+                }
+                break;
+            }
+        }
+
+        if (returnedParameter == null)
+            returnedParameter = "";
+        System.out.println(returnedParameter);                                                           // TODO: DELETE
+        return returnedParameter;
+    }
+
+    /*******************************************************************************************************************
+     * CHECK IS FILE HAS NO DUPLICATES *********************************************************************************
+     * @param pathToFile path to image *********************************************************************************
+     * @return  true  - file is original *******************************************************************************
+     *          false - file is duplicate ******************************************************************************
+     ******************************************************************************************************************/
+    public boolean isFileIsDuplicate(String pathToFile) {
+        System.out.println("---------- CHECKING IS IMAGE HAS DUPLICATES ----------");                    // TODO: DELETE
+        MessageDigest md = null;
+        FileInputStream fis;
+
+        byte[] dataBytes = new byte[1024];
+
+        int nread;
+
+        try {
+            md = MessageDigest.getInstance("MD5");
+            fis = new FileInputStream(pathToFile);
+            while ((nread = fis.read(dataBytes)) != -1) {
+                md.update(dataBytes, 0, nread);
+            }
+        } catch (NoSuchAlgorithmException e) {
+        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
+        }
+
+        byte[] mdbytes = md.digest();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < mdbytes.length; i++) {
+            sb.append(Integer.toString((mdbytes[i] & 0xff) + 0x100, 16).substring(1));
+        }
+
+        String md5 = sb.toString();
+
+        if (md5List.size() == 0) {
+            md5List.add(md5);
+            return false;
+        }
+        else {
+            for (int i=0; i < md5List.size(); i++) {
+                if (md5List.get(i).equals(md5)) {
+                    //duplicateList.add(sFullPathToFile);
+                    System.out.println(pathToFile + " - duplicate");                                     // TODO: DELETE
+                    return true;
+                }
+            }
+            md5List.add(md5);
+            System.out.println("ADDING NEW MD5");                                                        // TODO: DELETE
+        }
+        System.out.println(pathToFile + " - original");                                                 // TODO: DELETE
+        return false;
+    }
+
+    /*******************************************************************************************************************
+     * DELETING FILE ***************************************************************************************************
+     * @param pathToFile path to file that we need to delete ***********************************************************
+     ******************************************************************************************************************/
+    public void deleteFile(String pathToFile) {
+        System.out.println("---------- DELETING FILE (" + pathToFile + ") ----------"); // TODO: DELETE
+        File file = new File(pathToFile);
+        file.delete();
+    }
+
+    /*******************************************************************************************************************
+     * GENERATING NEW NAME *********************************************************************************************
+     * @param type 0 - name for folder *********************************************************************************
+     *             1 - name for image **********************************************************************************
+     * @return new name ************************************************************************************************
+     ******************************************************************************************************************/
+    public String getNewPathToFile(int type, int iSortNumber, String sTargetFolderPath) {
+        System.out.println("---------- GENERATING NEW NAME ----------");                                 // TODO: DELETE
+
+        String currentDirName = null;
+        String currentImageName = "Фото_" + getName(Values.IMAGE_FULL_DATA) + "_" + getName(Values.IMAGE_SIZE);
+
+        switch (iSortNumber) {
+            case 0:
+                currentDirName = "Фотографии" + File.separator +
+                        getName(Values.IMAGE_YEAR) + File.separator +
+                        getName(Values.IMAGE_MONTH);
+                break;
+            case 1:
+                currentDirName = "Фотографии" + File.separator +
+                        getName(Values.IMAGE_CAMERA_BRAND) + File.separator +
+                        getName(Values.IMAGE_CAMERA_MODEL);
+                break;
+            case 2:
+                currentDirName = "Фотографии" + File.separator +
+                        getName(Values.IMAGE_SIZE);
+                break;
+            case 3:
+                currentDirName = "Фотографии" + File.separator +
+                        getName(Values.IMAGE_TYPE);
+                break;
+        }
+
+        currentDirName = currentDirName.replace("null" + File.separator, "");
+        File dirWithImages = new File(sTargetFolderPath + File.separator + currentDirName);
+        if (dirWithImages.exists()) {
+            int folderElementsCount = dirWithImages.list().length + 1;
+            currentImageName += "_№" + folderElementsCount + "." + getName(Values.IMAGE_TYPE);
+        } else
+            currentImageName += "_№1." + getName(Values.IMAGE_TYPE);
+
+        currentImageName = currentImageName.replace("null_", "");
+        currentImageName = currentImageName.replace("____", "_");
+        currentImageName = currentImageName.replace("___","_");
+        currentImageName = currentImageName.replace("__","_");
+
+
+        if (type == Values.DIR) {
+            System.out.println("New dir name - " + currentDirName);                                      // TODO: DELETE
+            return currentDirName;
+        }else{
+            System.out.println("New image name - " + currentImageName);                                  // TODO: DELETE
+            return currentImageName;
+        }
     }
 
 }
