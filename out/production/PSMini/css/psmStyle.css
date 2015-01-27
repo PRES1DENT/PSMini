@@ -37,6 +37,13 @@
     -fx-text-fill: #653d35;
 }
 
+/** TEXT STYLE SMALL*/
+.labelSmallTextOut {
+    -fx-font-family: "BetinaScriptCTT";
+    -fx-font-size:14px;
+    -fx-text-fill: #3596dd;
+}
+
 /** TEXT FIELD STYLE */
 .textField {
     -fx-font-family: "BetinaScriptCTT";
@@ -51,7 +58,7 @@
     -fx-outline:0;
 }
 
-/** CHOICE BOX STYLE */
+/** CHOICE BOX STYLE **************************************************************************************************/
 .choiceBox {
     -fx-font-family: "BetinaScriptCTT";
     -fx-font-size:18px;
@@ -66,7 +73,7 @@
 
 }
 
-/** CHECK BOX STYLE*/
+/** CHECK BOX STYLE ***************************************************************************************************/
 #cb {
     -fx-font-family: "BetinaScriptCTT";
     -fx-font-size:14px;
@@ -80,7 +87,7 @@
 
 }
 
-/** IMAGE STYLE */
+/** IMAGE STYLE *******************************************************************************************************/
 .iv {
     /**-fx-effect: innershadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
     -fx-padding: 10px;
@@ -88,13 +95,14 @@
     -fx-image-size: cover;
 }
 
-.hb {
-    /**-fx-border-color: black;
-    -fx-border-width: 3px;*/
-
+.image-st {
+    -fx-background-color: white;
+    -fx-padding: 10px;
+    -fx-background-radius: 10 15 10 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 
-/** PROGRESS INDICATOR */
+/** PROGRESS INDICATOR ************************************************************************************************/
 .pr {
     -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
     -fx-font-family: "BetinaScriptCTT";
@@ -103,7 +111,7 @@
     -fx-control-inner-background: #fad7af;
 }
 
-/** BUTTON */
+/** BUTTON ************************************************************************************************************/
 
 #button {
 -fx-font-family: "BetinaScriptCTT";
