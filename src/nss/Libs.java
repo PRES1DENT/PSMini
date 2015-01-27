@@ -23,20 +23,21 @@ public class Libs {
     /*******************************************************************************************************************
      * CHECK FILE IS IMAGE *********************************************************************************************
      * @param filePath  path to file ***********************************************************************************
-     * @return true  - file is image ***********************************************************************************
-     *         false - file isn't image ********************************************************************************
+     * @return 0 - file isn't image ************************************************************************************
+     *         1 - file is image ***************************************************************************************
+     *         2 - file is jpg image ***********************************************************************************
      ******************************************************************************************************************/
-    public boolean fileIsImage(String filePath) {
+    public int fileIsImage(String filePath) {
         System.out.println("- CHECK IS FILE IS IMAGE");                                                  // TODO: DELETE
         String fileFormat = getFileType(filePath).toLowerCase();
-        if (
-                fileFormat.equals("jpg") || fileFormat.equals("jpeg") || (fileFormat.equals("nef") ||
-                        fileFormat.equals("cr2") || fileFormat.equals("psd")  ||fileFormat.equals("tif")   ||
-                        fileFormat.equals("png") || fileFormat.equals("gif")  || fileFormat.equals("orf")  ||
-                        fileFormat.equals("arw") || fileFormat.equals("rw2")))
-            return true;
+        if ( (fileFormat.equals("nef")   || fileFormat.equals("cr2") || fileFormat.equals("psd")  ||
+                fileFormat.equals("tif") || fileFormat.equals("png") || fileFormat.equals("gif")  ||
+                fileFormat.equals("orf") || fileFormat.equals("arw") || fileFormat.equals("rw2")))
+            return 1;
+        else if (fileFormat.equals("jpg") || fileFormat.equals("jpeg"))
+            return 2;
         else
-            return false;
+            return 0;
     }
 
     /*******************************************************************************************************************

@@ -2,29 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/libs/metadata-extractor-2.6.4.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/libs/psd-library-0.0.1.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PSMini/nss/Libs.class" afterPath="$PROJECT_DIR$/out/production/PSMini/nss/Libs.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PSMini/nss/Main$1.class" afterPath="$PROJECT_DIR$/out/production/PSMini/nss/Main$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PSMini/nss/Main$2.class" afterPath="$PROJECT_DIR$/out/production/PSMini/nss/Main$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PSMini/nss/Main$3.class" afterPath="$PROJECT_DIR$/out/production/PSMini/nss/Main$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PSMini/nss/Main$4.class" afterPath="$PROJECT_DIR$/out/production/PSMini/nss/Main$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PSMini/nss/Main.class" afterPath="$PROJECT_DIR$/out/production/PSMini/nss/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PSMini/nss/MyRunnable$1.class" afterPath="$PROJECT_DIR$/out/production/PSMini/nss/MyRunnable$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PSMini/nss/MyRunnable$2.class" afterPath="$PROJECT_DIR$/out/production/PSMini/nss/MyRunnable$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PSMini/nss/MyRunnable$3.class" afterPath="$PROJECT_DIR$/out/production/PSMini/nss/MyRunnable$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PSMini/nss/MyRunnable.class" afterPath="$PROJECT_DIR$/out/production/PSMini/nss/MyRunnable.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nss/Libs.java" afterPath="$PROJECT_DIR$/src/nss/Libs.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nss/Main.java" afterPath="$PROJECT_DIR$/src/nss/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nss/MyRunnable.java" afterPath="$PROJECT_DIR$/src/nss/MyRunnable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PSMini.iml" afterPath="$PROJECT_DIR$/PSMini.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PSMini/nss/photo_sort_mini.fxml" afterPath="$PROJECT_DIR$/out/production/PSMini/nss/photo_sort_mini.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nss/photo_sort_mini.fxml" afterPath="$PROJECT_DIR$/src/nss/photo_sort_mini.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PSMini/css/psmStyle.css" afterPath="$PROJECT_DIR$/out/production/PSMini/css/psmStyle.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/css/psmStyle.css" afterPath="$PROJECT_DIR$/src/css/psmStyle.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -38,7 +17,7 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/PSMini$Main.coverage" NAME="Main Coverage Results" MODIFIED="1422265408052" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/PSMini$Main.coverage" NAME="Main Coverage Results" MODIFIED="1422344406374" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>nss.*</FILTER>
     </SUITE>
   </component>
@@ -122,12 +101,12 @@
           <file leaf-file-name="MyRunnable.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/nss/MyRunnable.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-9.714286" vertical-offset="11089" max-vertical-offset="11985">
-                  <caret line="159" column="0" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.01674107" vertical-offset="2505" max-vertical-offset="12120">
+                  <caret line="168" column="28" selection-start-line="168" selection-start-column="28" selection-end-line="168" selection-end-column="28" />
                   <folding>
                     <element signature="imports" expanded="true" />
-                    <element signature="e#10553#10720#0" expanded="true" />
-                    <element signature="e#10719#10720#0" expanded="true" />
+                    <element signature="e#10796#10963#0" expanded="true" />
+                    <element signature="e#10962#10963#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -140,8 +119,8 @@
           <file leaf-file-name="Libs.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/nss/Libs.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.26004463" vertical-offset="592" max-vertical-offset="2865">
-                  <caret line="55" column="82" selection-start-line="55" selection-start-column="82" selection-end-line="55" selection-end-column="82" />
+                <state vertical-scroll-proportion="0.5223214" vertical-offset="387" max-vertical-offset="2880">
+                  <caret line="57" column="1" selection-start-line="57" selection-start-column="1" selection-end-line="57" selection-end-column="1" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -186,8 +165,8 @@
         <option value="$PROJECT_DIR$/src/nss/photo_sort_mini.fxml" />
         <option value="$PROJECT_DIR$/src/nss/Strings.java" />
         <option value="$PROJECT_DIR$/src/nss/Values.java" />
-        <option value="$PROJECT_DIR$/src/nss/Libs.java" />
         <option value="$PROJECT_DIR$/src/nss/Main.java" />
+        <option value="$PROJECT_DIR$/src/nss/Libs.java" />
         <option value="$PROJECT_DIR$/src/nss/MyRunnable.java" />
       </list>
     </option>
@@ -501,9 +480,11 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32051283" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23269436" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21299255" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32905984" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -515,10 +496,8 @@
       <window_info id="Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23269436" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32938644" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -539,7 +518,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="169" />
+      <option name="time" value="186" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -595,8 +574,8 @@
           <caret line="147" column="80" selection-start-line="147" selection-start-column="80" selection-end-line="147" selection-end-column="80" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#10553#10720#0" expanded="true" />
-            <element signature="e#10719#10720#0" expanded="true" />
+            <element signature="e#10796#10963#0" expanded="true" />
+            <element signature="e#10962#10963#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -647,8 +626,8 @@
           <caret line="147" column="80" selection-start-line="147" selection-start-column="80" selection-end-line="147" selection-end-column="80" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#10553#10720#0" expanded="true" />
-            <element signature="e#10719#10720#0" expanded="true" />
+            <element signature="e#10796#10963#0" expanded="true" />
+            <element signature="e#10962#10963#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -699,8 +678,8 @@
           <caret line="147" column="80" selection-start-line="147" selection-start-column="80" selection-end-line="147" selection-end-column="80" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#10553#10720#0" expanded="true" />
-            <element signature="e#10719#10720#0" expanded="true" />
+            <element signature="e#10796#10963#0" expanded="true" />
+            <element signature="e#10962#10963#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -751,8 +730,8 @@
           <caret line="76" column="29" selection-start-line="76" selection-start-column="29" selection-end-line="76" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#10553#10720#0" expanded="true" />
-            <element signature="e#10719#10720#0" expanded="true" />
+            <element signature="e#10796#10963#0" expanded="true" />
+            <element signature="e#10962#10963#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -793,8 +772,8 @@
           <caret line="76" column="29" selection-start-line="76" selection-start-column="29" selection-end-line="76" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#10553#10720#0" expanded="true" />
-            <element signature="e#10719#10720#0" expanded="true" />
+            <element signature="e#10796#10963#0" expanded="true" />
+            <element signature="e#10962#10963#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -825,8 +804,8 @@
           <caret line="107" column="37" selection-start-line="107" selection-start-column="37" selection-end-line="107" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#10553#10720#0" expanded="true" />
-            <element signature="e#10719#10720#0" expanded="true" />
+            <element signature="e#10796#10963#0" expanded="true" />
+            <element signature="e#10962#10963#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -850,8 +829,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#10553#10720#0" expanded="true" />
-            <element signature="e#10719#10720#0" expanded="true" />
+            <element signature="e#10796#10963#0" expanded="true" />
+            <element signature="e#10962#10963#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1025,8 +1004,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/nss/Values.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="285" max-vertical-offset="915">
-          <caret line="19" column="47" selection-start-line="19" selection-start-column="47" selection-end-line="19" selection-end-column="47" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="19" max-vertical-offset="915">
+          <caret line="51" column="50" selection-start-line="51" selection-start-column="50" selection-end-line="51" selection-end-column="50" />
           <folding />
         </state>
       </provider>
@@ -1052,24 +1031,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/nss/MyRunnable.java">
+    <entry file="file://$PROJECT_DIR$/src/nss/Libs.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.714286" vertical-offset="11089" max-vertical-offset="11985">
-          <caret line="159" column="0" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.5223214" vertical-offset="387" max-vertical-offset="2880">
+          <caret line="57" column="1" selection-start-line="57" selection-start-column="1" selection-end-line="57" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#10553#10720#0" expanded="true" />
-            <element signature="e#10719#10720#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/nss/Libs.java">
+    <entry file="file://$PROJECT_DIR$/src/nss/MyRunnable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.26004463" vertical-offset="592" max-vertical-offset="2865">
-          <caret line="55" column="82" selection-start-line="55" selection-start-column="82" selection-end-line="55" selection-end-column="82" />
+        <state vertical-scroll-proportion="0.01674107" vertical-offset="2505" max-vertical-offset="12120">
+          <caret line="168" column="28" selection-start-line="168" selection-start-column="28" selection-end-line="168" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#10796#10963#0" expanded="true" />
+            <element signature="e#10962#10963#0" expanded="true" />
           </folding>
         </state>
       </provider>

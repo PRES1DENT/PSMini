@@ -42,7 +42,8 @@ class MyRunnable implements Runnable{
     private final int IMAGE = 1;
 
 
-    ArrayList<String> alImages = new ArrayList<String>();
+    ArrayList<String> alAllImages = new ArrayList<>();
+    ArrayList<String> alOnlyJPGImages = new ArrayList<>();
     HashMap hmImageMetadata = new HashMap();
 
     Button btSetSourceFolder;
@@ -52,9 +53,11 @@ class MyRunnable implements Runnable{
     public ArrayList<String> duplicateList = new ArrayList<>();
 
     int count;
-    int size;
+    int allImageSize;
+    int onlyJPGSize;
 
     int z = 5;
+    int j = 0;
     Image image;
     ImageView ivImageView;
 
@@ -124,7 +127,11 @@ class MyRunnable implements Runnable{
         // Finding all images
         findAllImages(sSourceFolderPath);
         // Sorting array
-        Collections.sort(alImages);
+        Collections.sort(alAllImages);
+        Collections.sort(alOnlyJPGImages);
+        z = Math.round(allImageSize/onlyJPGSize);
+        if (z < 10)
+            z = 10;
         // Sorting images
         startSorting();
         Date dEnd = new Date();
@@ -142,10 +149,10 @@ class MyRunnable implements Runnable{
         String pathToFile;
         String newPathToDire;
         String newImageFile;
-        for (int i = 0; i < size; i++){ // LOOK ALL PHOTO //////////////////////////////////////////////////////////////
-            count = (size-1) - i;
+        for (int i = 0; i < allImageSize; i++){ // LOOK ALL PHOTO //////////////////////////////////////////////////////////////
+            count = (allImageSize -1) - i;
             Date dStart = new Date();
-            pathToFile = alImages.get(i);
+            pathToFile = alAllImages.get(i);
             System.out.println(" +++ " + (i+1) + ". " + pathToFile + ":");                               // TODO: DELETE
             if (isFileIsDuplicate(pathToFile)) {     // if file is duplicate
                 if (bSaveOriginal) {                      // if save original
@@ -158,12 +165,13 @@ class MyRunnable implements Runnable{
                 File file = new File(pathToFile);
                 // CHECK IF NEED TO CHANGE IMAGE////////////////////////////////////////////////////////////////////////
                 if (count%z == 0 ) {         // SHOW NEW PHOTO
-                    if (libs.getFileType(pathToFile).toLowerCase().equals("jpg") ||
-                            libs.getFileType(pathToFile).toLowerCase().equals("jpeg")) {
+                    if (j < onlyJPGSize) {
+                        j++;
                         System.out.println("THIS IMAGE TRY TO BE SHOW");                                 // TODO: DELETE
                         Date dStartShowImage = new Date();
                         try {
-                            image = new Image(file.toURI().toURL().toString());
+                            File imageToShow = new File(alOnlyJPGImages.get(j));
+                            image = new Image(imageToShow.toURI().toURL().toString());
                             // SET NEW IMAGE
                             Platform.runLater(new Runnable() {
                                 @Override
@@ -234,7 +242,7 @@ class MyRunnable implements Runnable{
             }
         });
 
-        System.out.println("WE NEED TO SORT ALL (" + size + ") IMAGES");                                 // TODO: DELETE
+        System.out.println("WE NEED TO SORT ALL (" + allImageSize + ") IMAGES");                                 // TODO: DELETE
         Date dEndSorting = new Date();
         Libs.calculateTime(dStartSorting, dEndSorting);
     }
@@ -378,7 +386,7 @@ class MyRunnable implements Runnable{
      *          - CAMERA_BRAND    - camera brand ***********************************************************************
      *          - CAMERA_MODEL    - camera model ***********************************************************************
      *          - CAMERA_TYPE     - image type *************************************************************************
-     *          - CAMERA_SIZE     - size of image (example (1600x900)) *************************************************
+     *          - CAMERA_SIZE     - allImageSize of image (example (1600x900)) *************************************************
      * @return name ****************************************************************************************************
      ******************************************************************************************************************/
     private String getName(int i) {
@@ -777,26 +785,27 @@ class MyRunnable implements Runnable{
             filePath = pathFrom + File.separator + mainDirList[i];
             File file = new File(filePath);
 
-            if (file.isFile()) {                    // IF FILE
-                if (libs.fileIsImage(filePath))          // IF IMAGE
-                    alImages.add(filePath);         // save full path to image
-            } else {                                // IF FOLDER
+            if (file.isFile()) {                         // IF FILE
+                if (libs.fileIsImage(filePath) == 1)     // IF IMAGE
+                    alAllImages.add(filePath);           // save full path to image
+                else if (libs.fileIsImage(filePath) == 2) {
+                    alAllImages.add(filePath);           // save full path to image
+                    alOnlyJPGImages.add(filePath);
+                }
+            } else {                                    // IF FOLDER
                 findAllImages(filePath);
             }
         }
 
-        size = alImages.size();
-        System.out.println("Found " + size + " images.");                                                // TODO: DELETE
-
-
-        if (size > 1000)
-            z = 10;
+        allImageSize = alAllImages.size();
+        onlyJPGSize  = alOnlyJPGImages.size();
+        System.out.println("Found " + allImageSize + " images.\nFound "+ onlyJPGSize + " jpg images.");                                                // TODO: DELETE
 
         // SHOW HOW MANY IMAGES PROGRAM FIND ///////////////////////////////////////////////////////////////////////////
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                lbAllImagesFound.setText((alImages.size()-1) + " шт.");
+                lbAllImagesFound.setText((alAllImages.size()-1) + " шт.");
             }
         });
         Date dEnd = new Date();
