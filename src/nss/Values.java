@@ -17,17 +17,17 @@ public class Values {
     public static final int APP_HEIGHT = 348;
 
     // IMAGE SIZE
-    public static final int IMAGE_WIDTH = 400;
+    public static final int IMAGE_WIDTH  = 400;
     public static final int IMAGE_HEIGHT = 230;
 
     // THREAD
     public static final int THREAD_SLEEP_TIME = 1000;
 
     // SORTING TYPE
-    public static final String SORT_BY_DATE   = "дате";
-    public static final String SORT_BY_CAMERA = "моделе аппрата";
-    public static final String SORT_BY_SIZE   = "размеру изображения";
-    public static final String SORT_BY_TYPE   = "формату";
+    public static final String SORT_BY_DATE_VALUE   = "дате";
+    public static final String SORT_BY_CAMERA_VALUE = "моделе аппрата";
+    public static final String SORT_BY_SIZE_VALUE   = "размеру изображения";
+    public static final String SORT_BY_TYPE_VALUE   = "формату";
 
     // DIRECTORY CHOOSE STRINGS
     public static final String DIR_CHOOSER_SOURCE_FOLDER_TITLE = "Select folder with images";
@@ -68,4 +68,28 @@ public class Values {
 
     public static final int DIR = 0;
     public static final int IMAGE = 1;
+
+    public static final String MAIN_DIR_NAME = "Фотографии";
+    public static final String MAIN_IMAGE_NAME = "Фото";
+
+    // SORT BY
+    public static final int SORT_BY_DATE   = 0;
+    public static final int SORT_BY_CAMERA = 1;
+    public static final int SORT_BY_SIZE   = 2;
+    public static final int SORT_BY_TYPE   = 3;
+
+    // TYPES
+    public static final int FOR_DATE  = 1;
+
+    // EMPTY DIRS
+    public static final String NO_YEAR = "Другие";
+    public static final String NO_CAMERA_BRAND = "Другие";
+    public static final String NO_CAMERA_MODEL = "Другие";
+
+
+    // REDUCT
+    public static final String IMAGE_REDACTED = "Редактировались";
+
+
 }
+

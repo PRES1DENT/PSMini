@@ -270,7 +270,7 @@ class Sort implements Runnable{
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                lbAllImagesFound.setText((alFindImages.size() - 1) + " шт.");
+                lbAllImagesFound.setText((alFindImages.size()) + " шт.");
             }
         });
     }

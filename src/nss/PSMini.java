@@ -33,10 +33,10 @@ public class PSMini extends Application {
     // List with values with sorting type
     ObservableList<String> olSortingList =
             FXCollections.observableArrayList(
-                    Values.SORT_BY_DATE,
-                    Values.SORT_BY_CAMERA,
-                    Values.SORT_BY_SIZE,
-                    Values.SORT_BY_TYPE
+                    Values.SORT_BY_DATE_VALUE,
+                    Values.SORT_BY_CAMERA_VALUE,
+                    Values.SORT_BY_SIZE_VALUE,
+                    Values.SORT_BY_TYPE_VALUE
             );
 
     // SOURCE FOLDER
