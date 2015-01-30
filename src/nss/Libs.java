@@ -232,8 +232,8 @@ public class Libs {
 
         boolean imageRedacted = false;
 
-        String imageCameraBrand = null;     // марка аппарата
-        String imageCameraModel = null;     // модель аппарата
+        String imageCameraBrand = Values.NO_CAMERA_BRAND;     // марка аппарата
+        String imageCameraModel = "";     // модель аппарата
 
         String imageType;                   // расширение снимка
 
@@ -295,10 +295,12 @@ public class Libs {
                 System.out.println("exifIFDOD not NULL:");                                               // TODO: DELETE
 
                 // Получаем марку и модель аппрата
-                imageCameraBrand = exifIFDOD.getString(ExifIFD0Directory.TAG_MAKE);
-                imageCameraModel = exifIFDOD.getString(ExifIFD0Directory.TAG_MODEL);
+                if (exifIFDOD.getString(ExifIFD0Directory.TAG_MAKE) != null) {
+                    imageCameraBrand = exifIFDOD.getString(ExifIFD0Directory.TAG_MAKE);
+                    imageCameraModel = exifIFDOD.getString(ExifIFD0Directory.TAG_MODEL);
+                }
 
-                if (imageCameraBrand != null && exifSIFDD != null && imageYear < 1975) {
+                if (exifSIFDD != null && imageYear < 1975) {
                     // Получаем дату снимка
                     Date date = exifIFDOD.getDate(ExifIFD0Directory.TAG_DATETIME);
                     System.out.println("TRYING TO GET DATE");                                                // TODO: DELETE
@@ -676,11 +678,14 @@ public class Libs {
                 break;
 
             case Values.IMAGE_CAMERA_BRAND:
-
-                if (hmImageMetadata.get("imageCameraBrand") == null)
-                    returnedParameter = Values.NO_CAMERA_BRAND;
-                else
                     returnedParameter = (String) hmImageMetadata.get("imageCameraBrand");
+                    if (!returnedParameter.equals(Values.NO_CAMERA_BRAND))
+                    {
+                        String[] allName = returnedParameter.split(" ");
+                        returnedParameter = allName[0];
+                    }
+                if (returnedParameter.equals("Corelogic"))
+                    returnedParameter = "Samsung";
                 break;
             case Values.IMAGE_CAMERA_MODEL:
                 if (hmImageMetadata.get("imageCameraModel") == null)
@@ -829,10 +834,10 @@ public class Libs {
         }
 
         currentDirName = currentDirName.replace("null" + File.separator, "");
-        File dirWithImages = new File(sTargetFolderPath + File.separator + currentDirName);
+        File dirForImage = new File(sTargetFolderPath + File.separator + currentDirName);
 
-        if (dirWithImages.exists()) {
-            int folderElementsCount = dirWithImages.list().length + 1;
+        if (dirForImage.exists()) {
+            int folderElementsCount = dirForImage.list().length + 1;
             currentImageName += "_№" + folderElementsCount + "." + getName(Values.IMAGE_TYPE, 0);
         } else
             currentImageName += "_№1." + getName(Values.IMAGE_TYPE, 0);
@@ -852,5 +857,3 @@ public class Libs {
         }
     }
 }
-
-
