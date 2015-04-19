@@ -35,8 +35,9 @@ public class ImageInfo {
      * Отримання інформації про зображення *************************************************************************** *
      * *************************************************************************************************************** *
      * @param pathToFile шлях до зображення ************************************************************************** *
+     * @param choiceBoxSortingPosition
      ******************************************************************************************************************/
-    public void getImageMetaData(String pathToFile) {
+    public void getImageMetaData(String pathToFile, int choiceBoxSortingPosition) {
         File image = new File(pathToFile);
         Metadata metadata;
 
@@ -69,12 +70,15 @@ public class ImageInfo {
             // якщо exifIFDOD директорія не порожня
             if (exifIFDOD != null) {
                 imageSize = SizeInfo.getSize(exifIFDOD);                                  // отримуємо розмір зображення
-                imageCamera = CameraInfo.getCameraNameAndModel(exifIFDOD);                // отримуємо марку та модель
-                // якщо марка не відсутня
-                if (imageCamera[0] != null) {
-                    // якщо марка Nikon
-                    if (imageCamera[0].toLowerCase().split(" ")[0].equals("nikon"))
-                        imageSize = SizeInfo.getSize(image);                              // отримуємо розмір зображення
+                // якщо сортування за апаратом
+                if (choiceBoxSortingPosition == Values.SORT_BY_CAMERA) {
+                    imageCamera = CameraInfo.getCameraNameAndModel(exifIFDOD);            // отримуємо марку та модель
+                    // якщо марка не відсутня
+                    if (imageCamera[0] != null) {
+                        // якщо марка Nikon
+                        if (imageCamera[0].toLowerCase().split(" ")[0].equals("nikon"))
+                            imageSize = SizeInfo.getSize(image);                          // отримуємо розмір зображення
+                    }
                 }
             }
 

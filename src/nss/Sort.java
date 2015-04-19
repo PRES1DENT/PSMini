@@ -181,7 +181,8 @@ class Sort implements Runnable {
             // інакше (якщо зображення - оригінал)
             } else {
                 countFoundOriginalImages++;                                     // додаємо +1 до лічильника оригіналів
-                imageInfo.getImageMetaData(currentImageName);                   // отримуємо інформацію з зображення
+                imageInfo.getImageMetaData(currentImageName,
+                        choiceBoxSortingPosition);                              // отримуємо інформацію з зображення
 
                 String newPathToDir = pathToTargetFolder +                      // генеруємо нових шлях
                         File.separator +
