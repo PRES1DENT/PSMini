@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PSMini:jar">
+    <output-path>C:/artifacts/PSMini_jar</output-path>
+    <root id="archive" name="PSMini.jar">
+      <element id="module-output" name="PSMini" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/xmpcore.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/psd-library-0.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/metadata-extractor-2.6.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/it.tidalwave.imageio.raw-1.6.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
