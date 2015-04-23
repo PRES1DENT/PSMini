@@ -37,7 +37,7 @@ public class Values {
     public static final int IMAGE_VIEW_HEIGHT = 230;                                // висота зображення
 
     private static final String SORT_BY_DATE_VALUE   = "дате";                      // назва типу сортування
-    private static final String SORT_BY_CAMERA_VALUE = "моделе аппрата";            // назва типу сортування
+    private static final String SORT_BY_CAMERA_VALUE = "модели аппрата";            // назва типу сортування
     private static final String SORT_BY_SIZE_VALUE   = "размеру изображения";       // назва типу сортування
     private static final String SORT_BY_TYPE_VALUE   = "формату";                   // назва типу сортування
 

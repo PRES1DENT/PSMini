@@ -71,7 +71,7 @@ public class ImageInfo {
             if (exifIFDOD != null) {
                 imageSize = SizeInfo.getSize(exifIFDOD);                                  // отримуємо розмір зображення
                 // якщо сортування за апаратом
-                if (choiceBoxSortingPosition == Values.SORT_BY_CAMERA) {
+                //if (choiceBoxSortingPosition == Values.SORT_BY_CAMERA) {
                     imageCamera = CameraInfo.getCameraNameAndModel(exifIFDOD);            // отримуємо марку та модель
                     // якщо марка не відсутня
                     if (imageCamera[0] != null) {
@@ -79,7 +79,7 @@ public class ImageInfo {
                         if (imageCamera[0].toLowerCase().split(" ")[0].equals("nikon"))
                             imageSize = SizeInfo.getSize(image);                          // отримуємо розмір зображення
                     }
-                }
+               //}
             }
 
             // якщо exifSIFDD директорія не порожня

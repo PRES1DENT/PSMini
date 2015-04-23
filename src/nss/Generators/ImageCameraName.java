@@ -114,6 +114,10 @@ public class ImageCameraName {
                         }
                     }
                 }
+
+                modelName = modelName.replace("\\",",");
+                modelName = modelName.replace("/",",");
+
                 return modelName;                                                   // вертаємо модель камери
             }
         // інакше (якщо немає моделі камери)
